@@ -18,13 +18,14 @@ public class FsfRandomDeath extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        PluginManager pm = Bukkit.getPluginManager();
         try {
             this.thresholdConfig = new ThresholdConfig(this);
         } catch (IOException | InvalidConfigurationException e) {
+            pm.disablePlugin(this);
             throw new RuntimeException(e);
         }
 
-        PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new PunchListener(this.thresholdConfig), this);
 
         requireNonNull(this.getCommand("randomdeath")).setExecutor(new RandomDeathCmd(this.thresholdConfig));
@@ -33,7 +34,9 @@ public class FsfRandomDeath extends JavaPlugin {
     @Override
     public void onDisable() {
         try {
-            this.thresholdConfig.save();
+            if (this.thresholdConfig != null) {
+                this.thresholdConfig.save();
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

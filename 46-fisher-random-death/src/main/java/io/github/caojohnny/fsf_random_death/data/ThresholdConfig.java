@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static java.util.Objects.requireNonNull;
+
 public class ThresholdConfig {
     private static final String THRESHOLD_CONFIG_NAME = "threshold.yaml";
 
@@ -19,20 +21,35 @@ public class ThresholdConfig {
     private double threshold;
 
     public ThresholdConfig(JavaPlugin plugin) throws IOException, InvalidConfigurationException {
-        this.configPath = getConfigPath(plugin);
-        this.yaml = loadYaml(this.configPath);
+        this.configPath = getConfigPath(plugin, THRESHOLD_CONFIG_NAME);
+        this.yaml = loadYaml(plugin, this.configPath);
 
         this.threshold = this.yaml.getDouble(THRESHOLD_KEY);
     }
 
-    private static Path getConfigPath(JavaPlugin plugin) {
-        return plugin.getDataFolder().toPath().resolve(THRESHOLD_CONFIG_NAME);
+    @SuppressWarnings("SameParameterValue")
+    private static Path getConfigPath(JavaPlugin plugin, String configName) {
+        return plugin.getDataFolder().toPath().resolve(configName);
     }
 
-    private static YamlConfiguration loadYaml(Path configPath) throws IOException, InvalidConfigurationException {
+    private static void saveDefaultConfig(JavaPlugin plugin, Path configPath) throws IOException {
+        Path dataFolderPath = plugin.getDataFolder().toPath();
+        if (!Files.exists(dataFolderPath)) {
+            Files.createDirectories(dataFolderPath);
+        }
+
+        String fileName = configPath.getFileName().toString();
+        Files.copy(requireNonNull(plugin.getResource(fileName)), configPath);
+    }
+
+    private static YamlConfiguration loadYaml(JavaPlugin plugin, Path configPath) throws IOException, InvalidConfigurationException {
+        if (!Files.exists(configPath)) {
+            saveDefaultConfig(plugin, configPath);
+        }
+
         String configString = Files.readString(configPath);
         YamlConfiguration yaml = new YamlConfiguration();
-        yaml.load(configString);
+        yaml.loadFromString(configString);
 
         return yaml;
     }

@@ -18,21 +18,28 @@ public class RandomDeathCmd implements CommandExecutor {
                              @NonNull Command command,
                              @NonNull String label,
                              @NonNull String[] args) {
-        if (args.length != 2) {
+        if (args.length < 1) {
             return false;
         }
 
         String subcommand = args[0];
         if (subcommand.equals("threshold")) {
-            try {
-                double chance = Double.parseDouble(args[1]);
+            if (args.length == 1) {
+                double chance = this.thresholdConfig.getThreshold();
+                sender.sendMessage("Random death threshold is currently set to: " + chance);
+            } else if (args.length == 2) {
+                try {
+                    double chance = Double.parseDouble(args[1]);
 
-                this.thresholdConfig.setThreshold(chance);
-                sender.sendMessage("Set random death threshold to: " + chance);
-            } catch (NumberFormatException e) {
-                sender.sendMessage("Should be a valid decimal! (" + args[1] + ")");
-                return true;
+                    this.thresholdConfig.setThreshold(chance);
+                    sender.sendMessage("Set random death threshold to: " + chance);
+                } catch (NumberFormatException e) {
+                    sender.sendMessage("Should be a valid decimal! (" + args[1] + ")");
+                }
+
             }
+
+            return true;
         }
 
         return false;
