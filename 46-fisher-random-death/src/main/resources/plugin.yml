@@ -1,0 +1,8 @@
+name: 46FisherRandomDeath
+main: io.github.caojohnny.fsf_random_death.FsfRandomDeath
+version: ${project.version}
+
+commands:
+  randomdeath:
+    description: "46FisherRandomDeath command"
+    usage: "/randomdeath [threshold <desired threshold>]"

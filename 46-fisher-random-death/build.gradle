@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+}
+
+group = 'io.github.caojohnny.fsf-random-death'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:26.1.2-R0.1-SNAPSHOT'
+
+    testImplementation platform('org.junit:junit-bom:6.0.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+
+test {
+    useJUnitPlatform()
+}
+
+processResources {
+    filesMatching('plugin.yml') {
+        expand project.properties
+    }
+}
+
+jar {
+    archiveFileName = "46FisherRandomDeath.jar"
+}

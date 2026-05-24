@@ -1,0 +1,3 @@
+rootProject.name = '46-fisher-mods'
+
+include '46-fisher-random-death'
