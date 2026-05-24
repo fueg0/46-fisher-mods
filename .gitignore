@@ -1,5 +1,5 @@
 .gradle
-build/
+46-fisher-random-death/build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
