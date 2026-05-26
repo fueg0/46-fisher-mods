@@ -1,0 +1,27 @@
+# Vog (Voice of God) Configuration
+
+# Cooldown in seconds (1 = instant for testing)
+cooldown-seconds: 1
+
+# Maximum message length in characters
+max-message-length: 200
+
+# Base volume (0.0 to 1.0)
+volume: 1.0
+
+# Echo/reverb settings
+echo-count: 3
+echo-delay-ms: 400
+echo-volume-decay: 0.6
+
+# Server IP for resource pack (auto-detected if not set)
+# For local testing: "127.0.0.1"
+# For LAN players: your local IP (e.g., "192.168.1.100")
+# For remote players: your public IP with port forwarding
+server-ip: "127.0.0.1"
+
+# Debug mode - enables verbose logging
+debug: true
+
+# Play vanilla sound test first to verify audio works
+test-vanilla-sound: true

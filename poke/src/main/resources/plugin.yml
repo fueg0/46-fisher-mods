@@ -1,0 +1,5 @@
+name: Poke
+version: "${version}"
+main: com.poke.PokePlugin
+description: Facebook-style poke counter under player names
+api-version: '1.21'

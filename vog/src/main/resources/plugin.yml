@@ -1,0 +1,21 @@
+name: Vog
+version: "${version}"
+main: com.vogmod.Vog
+description: Voice of God - TTS from the sky with echo
+author: YourName
+api-version: '1.21'
+
+commands:
+  vog:
+    description: Speak to the heavens
+    usage: /vog <text>
+    permission: vog.speak
+    aliases: [voiceofgod]
+
+permissions:
+  vog.speak:
+    description: Use /vog to speak as the voice of god
+    default: true
+  vog.bypass.cooldown:
+    description: Bypass the vog cooldown
+    default: op
